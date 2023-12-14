@@ -2,20 +2,16 @@
     <div>
       <form @submit.prevent="submitForm">
         <div>
-          <label>Name</label>
-          <input v-model="formData.name" type="text" name="name" placeholder="Soic" required>
+          <label for="nama">Name</label>
+          <input v-model="formData.nama" type="text" id="nama" placeholder="Soic" required>
         </div>
         <div>
-          <label>Email</label>
-          <input v-model="formData.email" type="email" name="email" placeholder="soic@soic.com" required>
+          <label for="email">Email</label>
+          <input v-model="formData.email" type="email" id="email" placeholder="soic@soic.com" required>
         </div>
         <div>
-          <label>Phone Number</label>
-          <input v-model="formData.phone" type="text" name="phone" placeholder="+62 1896750874" required>
-        </div>
-        <div>
-          <label>School</label>
-          <input v-model="formData.school" type="text" name="school" placeholder="SMAN 2 Kota Tangerang Selatan" required>
+          <label for="asalSekolah">Asal Sekolah</label>
+          <input v-model="formData.asalSekolah" type="text" id="asalSekolah" placeholder="SMAN 2 Kota Tangerang Selatan" required>
         </div>
         <button type="submit">Register</button>
       </form>
@@ -29,65 +25,58 @@
   import { ref } from 'vue';
   
   const formData = ref({
-    name: '',
+    nama: '',
     email: '',
-    phone: '',
-    school: '',
+    asalSekolah: '',
   });
   
   const isFormSubmitted = ref(false);
   
   const getCurrentDate = () => {
-    var currentDate = new Date();
-  
-    var day = currentDate.getDate();
-    var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var month = monthNames[currentDate.getMonth()];
-    var year = currentDate.getFullYear();
-  
-    var formattedDate = day + ' ' + month + ' ' + year;
-  
-    return formattedDate;
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return currentDate.toLocaleDateString('en-US', options);
   };
   
   const submitForm = async () => {
-    console.log(getCurrentDate());
-    try {
-      const response = await fetch('http://localhost:8000/api/Pendaftaran', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          school: formData.school,
-          date: getCurrentDate(),
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      const responseData = await response.json();
-      console.log(responseData);
-      isFormSubmitted.value = true;
-      formData.value = {
-        name: '',
-        email: '',
-        phone: '',
-        school: '',
-      };
-    } catch (error) {
-      console.error('Error submitting form:', error.message);
+  try {
+    const response = await fetch('http://localhost:8000/api/Pendaftaran', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        nama: formData.nama,
+        email: formData.email,
+        asal_Sekolah: formData.asalSekolah,
+        Status: 'waiting',
+        Tanggal_Pendaftaran: getCurrentDate(),
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`HTTP error! Status: ${response.status}, Response Text: ${errorText}`);
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-  };
+
+    const responseData = await response.json();
+    console.log(responseData);
+    isFormSubmitted.value = true;
+    formData.value = {
+      nama: '',
+      email: '',
+      asalSekolah: '',
+    };
+  } catch (error) {
+    console.error('Error submitting form:', error.message);
+  }
+};
+
   </script>
   
-  <style>
-  /* Add your styles as needed */
+  <style scoped>
+  /* Add your scoped styles as needed */
   </style>
   
