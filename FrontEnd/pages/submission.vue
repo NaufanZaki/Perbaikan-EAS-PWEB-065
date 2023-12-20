@@ -1,25 +1,25 @@
 <template>
-  <div class="max-w-md mx-auto my-10 p-8 bg-white rounded shadow-md">
+  <div class="max-w-md mx-auto my-10 p-8 bg-stone-300 rounded shadow-md">
     <form @submit.prevent="submitForm" class="space-y-4">
       <div>
         <label for="name" class="block text-gray-700">Nama:</label>
         <input id="name" v-model="submission.name" type="text" required
-          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" />
+          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-red-200" />
       </div>
       <div>
         <label for="email" class="block text-gray-700">Email:</label>
         <input id="email" v-model="submission.email" type="email" required
-          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" />
+          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-red-200" />
       </div>
       <div>
         <label for="institution" class="block text-gray-700">Asal Sekolah:</label>
         <input id="institution" v-model="submission.institution" type="text" required
-          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" />
+          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-red-200" />
       </div>
       <div>
         <label for="date" class="block text-gray-700">Tanggal:</label>
         <input id="date" v-model="submission.date" type="date" required
-          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" />
+          class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-red-200" />
       </div>
       <button type="submit"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue">

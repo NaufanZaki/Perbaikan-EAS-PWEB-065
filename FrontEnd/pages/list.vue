@@ -9,7 +9,7 @@
         />
         <button
           @click="resetSearch"
-          class="px-4 py-2 bg-blue-800 text-white rounded hover:bg-gray-900 focus:outline-none"
+          class="px-4 py-2 bg-blue-800 text-white rounded hover:bg-red-500 focus:outline-none"
         >
           Reset
         </button>
@@ -24,7 +24,7 @@
         
       </div>
   
-      <div v-for="submission in filteredSubmissions" :key="submission.id" class="my-4 p-6 bg-white shadow-md rounded-md">
+      <div v-for="submission in filteredSubmissions" :key="submission.id" class="my-4 p-6 bg-stone-300 shadow-md rounded-md">
         <h2 class="text-2xl font-bold mb-2">{{ submission.name }}</h2>
         <p class="text-gray-700">Email: {{ submission.email }}</p>
         <p class="text-gray-700">Asal Sekolah: {{ submission.institution }}</p>

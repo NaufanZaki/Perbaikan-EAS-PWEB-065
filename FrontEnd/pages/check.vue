@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto my-10 p-8 bg-white rounded shadow-md">
+  <div class="max-w-md mx-auto my-10 p-8 bg-stone-300 rounded shadow-md">
     <form @submit.prevent="checkStatus" class="space-y-4">
       <div>
         <label for="email" class="block text-gray-700">Email:</label>
