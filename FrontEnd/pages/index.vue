@@ -1,82 +1,47 @@
 <template>
-    <div>
-      <form @submit.prevent="submitForm">
-        <div>
-          <label for="nama">Name</label>
-          <input v-model="formData.nama" type="text" id="nama" placeholder="Soic" required>
-        </div>
-        <div>
-          <label for="email">Email</label>
-          <input v-model="formData.email" type="email" id="email" placeholder="soic@soic.com" required>
-        </div>
-        <div>
-          <label for="asalSekolah">Asal Sekolah</label>
-          <input v-model="formData.asalSekolah" type="text" id="asalSekolah" placeholder="SMAN 2 Kota Tangerang Selatan" required>
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      <div v-if="isFormSubmitted">
-        <h1>Register Success</h1>
+  <div class="flex flex-col items-center justify-center h-screen">
+    <h1 class="text-4xl font-bold mb-8">Selamat Datang</h1>
+    <h3 class="text-2xl font-bold mb-8">Para Pejuang Lomba Mewarnai Tingkat Sepuh dan Sederajat</h3>
+    
+    <nav class="flex flex-col items-left justify-center bg-gray-200 p-4 shadow-md space-y-4">
+      <div class="flex flex-row items-center">
+        <NuxtLink to="/submission">
+          <button class="btn-box btn-blue">Registrasi</button>
+        </NuxtLink>
+        <p class="ml-4">Klik ini untuk Registrasi</p>
       </div>
-    </div>
-  </template>
-  
-  <script setup>
-  import { ref } from 'vue';
-  
-  const formData = ref({
-    nama: '',
-    email: '',
-    asalSekolah: '',
-  });
-  
-  const isFormSubmitted = ref(false);
-  
-  const getCurrentDate = () => {
-    const currentDate = new Date();
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return currentDate.toLocaleDateString('en-US', options);
-  };
-  
-  const submitForm = async () => {
-  try {
-    const response = await fetch('http://localhost:8000/api/Pendaftaran', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({
-        nama: formData.nama,
-        email: formData.email,
-        asal_Sekolah: formData.asalSekolah,
-        Status: 'waiting',
-        Tanggal_Pendaftaran: getCurrentDate(),
-      }),
-    });
+      <div class="flex flex-row items-center">
+        <NuxtLink to="/check">
+          <button class="btn-box btn-blue">Cek Status</button>
+        </NuxtLink>
+        <p class="ml-4">Klik ini untuk memeriksa status registrasi anda</p>
+      </div>
+      <div class="flex flex-row items-center">
+        <NuxtLink to="/list">
+          <button class="btn-box btn-green">Peserta</button>
+        </NuxtLink>
+        <p class="ml-4">Klik ini untuk melihat list peserta</p>
+      </div>
+    </nav>
+  </div>
+</template>
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`HTTP error! Status: ${response.status}, Response Text: ${errorText}`);
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+<script setup>
 
-    const responseData = await response.json();
-    console.log(responseData);
-    isFormSubmitted.value = true;
-    formData.value = {
-      nama: '',
-      email: '',
-      asalSekolah: '',
-    };
-  } catch (error) {
-    console.error('Error submitting form:', error.message);
-  }
-};
+</script>
 
-  </script>
-  
-  <style scoped>
-  /* Add your scoped styles as needed */
-  </style>
-  
+<style scoped>
+.btn-box {
+  background-color: #fff;
+  color: #333;
+  font-weight: bold;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-box:hover {
+  background-color: #f0f4f8;
+}
+</style>
